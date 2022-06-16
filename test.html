@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="in">
+    <p id="out"></p>
+</body>
+<script>
+    out = "";
+    text = "Cum and go Smash and dash Hit it and quit it Shoot and scoot Go up her skirt but don’t forget your shirt Ram and scram Splat and scat Touch her cooter and call an Uber Smash her rear and disappear Penetration then change location Bust a nut and leave the hut Nut and bolt Ejaculate and evacuate Do the vagina and move to China Give her the cream and swim downstream Do the deed and need for speed Give her goo and die of the flu Rub her tan and be a black man Blow your load and hit the road Murder her cat and get a hat Give her a reason to be poor and go out the back door Tear her blouse and leave the house Pump her and dump her Make a man and leave the plan Make a baby and call her maybe Hit it from the back and then become black Make her a mom and then begone Hit her dad then that’s bad Bake a cake then take a break Cook it and book it Cream pie and say goodbye Be not gay and go MIA Don’t pull out and leave her to pout Stab her with your knife and get a life Put your sword in the sheath and crawl out from beneath Fuck a broad and go abroad Cum in a bitch and go make a wish Leave her breathless and take a necklace Give them an std and then run free Do it on the floor and go out the back door Tap that ass and run like the flash Give her your seed and flee Hook it and book it Flick the bean and don’t be seen Let her ride and go outside Pump her with gas and gotta go fast Hit her raw and then yee haw Dick her down and get outta town Release the dump and then Forrest Gump Fuck her in the car and then allahu ackbar Drip and dip Nail and bail Nut then strut Plow and ciao Suck and duck Skeet and yeet Screw and shoo Squirt and revert Skeet and retreat Rape and escape Hump then dump Kiss then dismiss Finger don't linger Cuddle then scuttle Get laid then evade Breed then proceed Jack off then back off Go down and skip town Tear her apart then depart Impregnate and immigrate Suck her toes then say adios Shoot the jizz then out you is Fuck her ass then hit the gas Bust a nut then leave the hut Fill her hole then take a stroll Smash mouth and dash south Shoot your goo and say adieu Give her cock then run a block Make a baby and run like crazy Smash her rear then disappear Hit the spot then ditch the thot Shoot the glaze then run aways Blow your load and hit the road Give her meat then hit the street Shoot your shit then fucking split Get some brain then ride the train Paint her face and leave the place Give her the dick and get out quick Fill the crack and never come back Ruin her sheets then hit the streets Rock her box then change the locks Insert your cock then promptly walk Make her your play mate and vacate Slide in your meat then hit the street Fertilize her seed then need for speed Empty your sack and don't come back Cum on her back then get on the track Fuck her fast then leave her in the past Get insider her gown then get out of town Please your monkey and leave the country Prove you ain't gay then run the fuck away Take her virginity then change your vicinity Give it to the lad then make like a black dad Prompt her wetting then change your setting Explore your sexuality then reposition your locality Upload your genetic information then appear in a different nation Preform vaginal penetration then proceed to change your location Put yourself inside her a fair amount then change your physical whereabouts Get through her gate then make haste Spray DNA and refuse to stay";
+
+    function Do() {
+        lines = text.split(/(?=[A-Z])/);
+        for (let i = 0; i < lines.length; i++) {
+
+            if (lines[i].split(" ").length > 2) {
+                out += "<br/>";
+            } else {}
+            /*
+            words = lines[i].split(" ");
+            if (words.length <= 2) {} else {
+                out += "<br/>";
+            }
+            */
+            out += lines[i];
+            console.log(out);
+        }
+        document.getElementById("out").innerHTML = out;
+    }
+    Do();
+</script>
+
+</html>
