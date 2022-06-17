@@ -4,11 +4,12 @@ require("firebase/firestore");
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
 const firebaseConfig = {
-    apiKey: "API_KEY",
+    apiKey: "AIzaSyBGiNMXAnydUJe0nTIKdc9EpH9tXsvcoAU",
     authDomain: "batluc-ebf20.firebaseapp.com",
     // The value of `databaseURL` depends on the location of the database
     databaseURL: "https://DATABASE_NAME.firebaseio.com",
@@ -17,7 +18,7 @@ const firebaseConfig = {
     messagingSenderId: "SENDER_ID",
     appId: "APP_ID",
     // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
-    measurementId: "G-MEASUREMENT_ID",
+    //measurementId: "G-MEASUREMENT_ID",
 };
 
 // Initialize Firebase
@@ -27,14 +28,31 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-//import { collection, addDoc } from "firebase/firestore"; 
-import { collection, getDocs } from "firebase/firestore";
-
+/*
 //Read data
 const querySnapshot = await getDocs(collection(db, "Main"));
 querySnapshot.forEach((doc) => {
     console.log(`${doc.id} => ${doc.data()}`);
 });
+*/
+const score = doc(db, "Batluc/862004");
+
+function writeScore() {
+    var content = {
+        A: 2,
+        B: 3
+    };
+
+    setDoc(score, content, { merge: true })
+        .then(() => {
+            console.log("Data have bên written to firebase");
+        })
+        .catch((error) => {
+            console.log('Got an ERROR!!! + ${error}');
+        })
+}
+
+writeScore();
 
 
 A = 0;
