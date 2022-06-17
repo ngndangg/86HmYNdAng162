@@ -21,17 +21,27 @@
         </div>
     </div>
     <div id="give-ctn">
-        <button id="give-A" class="give-btn" onclick="GiveB()"> Cho thẻ B</button>
-        <button id="give-B" class="give-btn" onclick="GiveA()"> Cho thẻ A</button>
+        <button id="give-B" class="give-btn"> Cho thẻ B</button>
+        <button id="give-A" class="give-btn"> Cho thẻ A</button>
     </div>
     <div id="undo-ctn">
-        <button id="undo-A" class="undo-btn">Rút lại 1 thẻ</button>
         <button id="undo-B" class="undo-btn">Rút lại 1 thẻ</button>
+        <button id="undo-A" class="undo-btn">Rút lại 1 thẻ</button>
     </div>
     <div id="dev-ctn">
         <h2 id="test"></h2>
-        <button id="dev-read" onclick="ReadScore()">Đọc số</button>
-        <button id="dev-save" onclick="SaveScore()">Lưu số</button>
+        <button id="reset">Reset Score to 0</button>
+        <label for="input">Time Out</label>
+        <input type="checkbox" name="Time Out" id="timeout" checked="true">
+    </div>
+    <div id='box-ctn'>
+    </div>
+
+    <div id='box-1' class="box-item">
+        <h2>Bất lực</h2>
+    </div>
+    <div id='box-2' class="box-item">
+        <h2>Bất lực</h2>
     </div>
 </body>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>

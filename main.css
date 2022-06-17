@@ -31,3 +31,89 @@ body {
     width: 45%;
     height: 45vh;
 }
+
+#box-ctn {
+    display: flex;
+    /*
+    align-items: center;
+    justify-content: center;
+    */
+    height: 100%;
+}
+
+.box-item {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #ffe672;
+    pointer-events: none;
+    /*
+    animation-name: give-card;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    */
+    opacity: 0;
+    /* shorthand 
+    animation: give-card 1.5s linear 0s 1 normal none;
+    */
+}
+
+@keyframes anim-box-1 {
+    0% {
+        transform: translateY(0) translateX(0) scale(0);
+        transform-origin: 0% 100%;
+        opacity: 0;
+    }
+    34% {
+        transform: translateY(-60px) translateX(50px) scale(1);
+        transform-origin: 0% 100%;
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-100px) translateX(100px);
+    }
+    57% {
+        transform: translateY(-100px) translateX(120px);
+    }
+    78% {
+        transform: translateY(-90px) translateX(150px)scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-60px) translateX(150px) scale(0);
+        transform-origin: 100% 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes anim-box-2 {
+    0% {
+        transform: translateY(0) translateX(0) scale(0);
+        transform-origin: 100% 100%;
+        opacity: 0;
+    }
+    34% {
+        transform: translateY(-60px) translateX(-50px) scale(1);
+        transform-origin: 100% 100%;
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-100px) translateX(-100px);
+    }
+    57% {
+        transform: translateY(-100px) translateX(-120px);
+    }
+    78% {
+        transform: translateY(-90px) translateX(-150px)scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-60px) translateX(-150px) scale(0);
+        transform-origin: 0% 100%;
+        opacity: 0;
+    }
+}
