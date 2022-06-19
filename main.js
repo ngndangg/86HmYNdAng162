@@ -1,14 +1,9 @@
-/*
-const firebase = require("firebase");
-// Required for side-effects
-require("firebase/firestore");
-*/
-
 var A = 0;
 var B = 0;
-
+//#region ====================FIREBASE========================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getFirestore, doc, getDoc, getDocs, setDoc, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -32,16 +27,9 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-/*
-//Read data
-const querySnapshot = await getDocs(collection(db, "Main"));
-querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
-});
-*/
 const score = doc(db, "Batluc/862004");
 
-function writeScore(_a, _b) {
+export function WriteScore(_a, _b) {
     var content = {
         A: _a,
         B: _b
@@ -56,17 +44,20 @@ function writeScore(_a, _b) {
         })
 }
 
-async function getScore() {
+export async function GetScore() {
     const snapshot = await getDoc(score);
     if (snapshot.exists()) {
         var docData = snapshot.data();
-        A = docData.A;
-        B = docData.B;
-        console.log("My data is: " + A + ", " + B);
-        UpdateScore();
+        var _A = docData.A;
+        var _B = docData.B;
+        console.log("My data is: " + _A + ", " + _B);
+        SetA(_A);
+        SetB(_B);
     }
 }
-getScore();
+GetScore();
+
+//#endregion
 
 const btnA = document.getElementById("give-A");
 const btnB = document.getElementById("give-B");
@@ -87,33 +78,42 @@ function EnableAllBtn() {
     btnD.disabled = false;
 }
 
-const anim1 = document.getElementById("box-1");
-const anim2 = document.getElementById("box-2");
+//ANIMATION
+const animCardA = document.getElementById("card-A");
+const animCardB = document.getElementById("card-B");
+
+function SetUpCardStyle() { //Set Position of Card
+    var rect1 = getRect(btnB);
+    animCardB.style.top = String(rect1.top + rect1.h / 2) + "px";
+    animCardB.style.right = String(rect1.left + (rect1.w / 2)) + "px";
+
+    var rect2 = getRect(btnB);
+    animCardA.style.top = String(rect2.top + rect2.h / 2) + "px";
+    animCardA.style.left = String(rect2.left + (rect2.w / 2)) + "px";
+}
+SetUpCardStyle();
+
+//#region  =======================FUNCTIONS=================================
 
 var timeOutDuration = 1000;
 btnA.addEventListener("click", function() {
     GiveA();
     DisableAllBtn();
-    anim2.style.animation = "anim-box-2 1s linear 0s 1 normal none";
-    var rectTarget = getRect(btnB);
-    anim2.style.top = String(rectTarget.top + rectTarget.h / 2) + "px";
-    anim2.style.right = String(rectTarget.left + (rectTarget.w / 2)) + "px";
+    animCardB.style.animation = "anim-card-B " + timeOutDuration / 1000 + "s linear 0s 1 normal none";
     setTimeout(function() {
         EnableAllBtn();
-        anim2.style.animation = "";
+        animCardB.style.animation = "";
     }, timeOutDuration);
 });
 
 btnB.addEventListener("click", function() {
     GiveB();
     DisableAllBtn();
-    anim1.style.animation = "anim-box-1 1s linear 0s 1 normal none";
-    var rectTarget = getRect(btnB);
-    anim1.style.top = String(rectTarget.top + rectTarget.h / 2) + "px";
-    anim1.style.left = String(rectTarget.left + (rectTarget.w / 2)) + "px";
+    animCardA.style.animation = "anim-card-A " + timeOutDuration / 1000 + "s linear 0s 1 normal none";
+    //SetUpCardStyle();
     setTimeout(function() {
         EnableAllBtn();
-        anim1.style.animation = "";
+        animCardA.style.animation = "";
     }, timeOutDuration);
 });
 btnC.addEventListener("click", function() {
@@ -127,53 +127,44 @@ btnD.addEventListener("click", function() {
     setTimeout(function() { EnableAllBtn(); }, timeOutDuration);
 });
 
-//ANIMATION
-function AnimateCardBy(obj, target, alignLeft) {
-    var rectObj = getRect(obj);
-    var rectTarget = getRect(target);
-    anim1.style.top = String(rectTarget.top + rectTarget.h / 2) + "px";
-    if (alignLeft) {
-        anim1.style.left = String(rectTarget.left + rectTarget.w / 2) + "px";
-    } else {
-        anim2.style.right = String(rectTarget.left + (rectTarget.w / 2)) + "px";
-    }
-}
-
-//Functionalities
 
 function GiveA() {
     A++;
-    SetA();
+    SetA(A);
 }
 
 function GiveB() {
     B++;
-    SetB();
+    SetB(B);
 }
 
 function UndoA() {
     A--;
-    SetA();
+    SetA(A);
 }
 
 function UndoB() {
     B--;
-    SetB();
+    SetB(B);
 }
 
 function UpdateScore() {
     SetA(A);
     SetB(B);
+    WriteScore(A, B);
 }
 
-function SetA() {
+
+function SetA(_a) {
+    A = _a;
     document.getElementById("disp-A").innerHTML = A;
-    writeScore(A, B);
+    WriteScore(A, B);
 }
 
-function SetB() {
+function SetB(_b) {
+    B = _b;
     document.getElementById("disp-B").innerHTML = B;
-    writeScore(A, B);
+    WriteScore(A, B);
 }
 
 document.getElementById("reset").addEventListener("click", function() {
@@ -181,7 +172,9 @@ document.getElementById("reset").addEventListener("click", function() {
     B = 0;
     UpdateScore();
 });
+//#endregion
 
+//#region ==============================OTHER======================================
 //Toggle Button Cooldown
 var initialDuration = timeOutDuration;
 var timeoutcheckbox = document.getElementById("timeout");
@@ -207,3 +200,12 @@ function getRect(el) {
         h: rect.height,
     };
 }
+
+//Detect Window resize
+window.addEventListener('resize', WindowResized);
+
+function WindowResized() {
+    SetUpCardStyle();
+}
+
+//#endregion

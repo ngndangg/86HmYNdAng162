@@ -1,0 +1,167 @@
+@use "variables" as v;
+
+/** ============================== Give Buttons =========================== */
+
+#give-ctn,
+#undo-ctn {
+    margin: 1vh;
+    padding: 1vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+@mixin Button($w, $h, $font-size, $mainC, $shadowC, $textC) {
+    width: $w;
+    height: $h;
+    margin: 0;
+    padding: 0.5rem 0.7rem;
+    display: inline-block;
+    appearance: button;
+    background-color: $shadowC;
+    border: solid transparent;
+    border-radius: 0.7rem;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: $textC;
+    font-family: oswald, sans-serif;
+    font-size: $font-size;
+    font-weight: 700;
+    letter-spacing: -0.001rem;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    touch-action: none;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    &:after {
+        background-color: $mainC;
+        position: absolute;
+        background-clip: padding-box;
+        border: solid transparent;
+        border-radius: 16px;
+        border-width: 0 0 3px;
+        bottom: -3px;
+        content: "";
+        inset: 0;
+        z-index: -1;
+    }
+    &:main,
+    &:focus {
+        user-select: auto;
+    }
+    &:disabled {
+        filter: brightness(0.8);
+        -webkit-filter: brightness(0.8);
+    }
+    &:enabled {
+        filter: none;
+    }
+}
+
+//@mixin Button2($w, $h, $font-size, $mainC, $shadowC, $textC) {
+@mixin Button2 {
+    //$shadowC: #D6D6E7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    appearance: none;
+    padding: 0 16px;
+    position: relative;
+    border-radius: 2rem;
+    border-width: 0;
+    box-sizing: border-box;
+    font-family: "Oswald", sans-serif;
+    font-weight: 800;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    white-space: normal;
+    /*
+    $normal-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $shadowC 0 -5px 0 inset;
+    $focus-shadow: $shadowC 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $shadowC 0 -3px 0 inset;
+    $active-shadow: $shadowC 0 3px 7px inset;
+    
+    background-color: $mainC;
+    box-shadow: $normal-shadow;
+    color: $textC;
+    font-size: $font-size;
+    width: $w;
+    height: $h;
+    &:focus {
+        box-shadow: $focus-shadow;
+    }
+    &:hover {
+        box-shadow: $normal-shadow;
+        transform: translateY(-2px);
+    }
+    &:active {
+        box-shadow: $active-shadow;
+        transform: translateY(2px);
+    }
+    */
+}
+
+@mixin Button2Variation($w, $h, $font-size, $mainC, $shadowC, $textC) {
+    $normal-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $shadowC 0 -10px 0 inset;
+    $focus-shadow: $shadowC 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $shadowC 0 -3px 0 inset;
+    $active-shadow: $shadowC 0 3px 7px inset;
+    background-color: $mainC;
+    box-shadow: $normal-shadow;
+    color: $textC;
+    font-size: $font-size;
+    width: $w;
+    height: $h;
+    &:focus {
+        box-shadow: $focus-shadow;
+    }
+    &:hover {
+        box-shadow: $normal-shadow;
+        transform: translateY(-2px);
+    }
+    &:active {
+        box-shadow: $active-shadow;
+        transform: translateY(2px);
+    }
+}
+
+.give-btn {
+    @include Button2;
+}
+
+#give-A {
+    /*
+background-color: v.$color-5;
+color: v.$text-color-1;
+&:after {
+    background-color: v.$color-4;
+}
+*/
+    @include Button2Variation(40vw, 50vh, 2rem, v.$color-4, v.$color-5, v.$text-color-1);
+}
+
+#give-B {
+    /*
+background-color: v.$color-8;
+color: v.$text-color-2;
+&:after {
+    background-color: v.$color-7;
+}
+*/
+    @include Button2Variation(40vw, 50vh, 2rem, v.$color-7, v.$color-8, v.$text-color-2);
+}
+
+.undo-btn {
+    $testC: #d9d9d9;
+    @include Button(auto, 10vh, 1rem, $testC, darken($testC, 40%), darken($testC, 30%));
+}

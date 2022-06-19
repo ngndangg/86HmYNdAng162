@@ -6,7 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Montserrat">
     <title>Thẻ Bất lực</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/afcbb667b7.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -21,31 +24,63 @@
         </div>
     </div>
     <div id="give-ctn">
-        <button id="give-B" class="give-btn"> Cho thẻ B</button>
-        <button id="give-A" class="give-btn"> Cho thẻ A</button>
+        <button id="give-B" class="give-btn" role="button"> CHO THẺ B</button>
+        <button id="give-A" class="give-btn" role="button"> CHO THẺ A</button>
     </div>
     <div id="undo-ctn">
-        <button id="undo-B" class="undo-btn">Rút lại 1 thẻ</button>
-        <button id="undo-A" class="undo-btn">Rút lại 1 thẻ</button>
+        <button id="undo-B" class="undo-btn" role="button"><i class="fa-solid fa-rotate-left"></i> RÚT THẺ</button>
+        <button id="undo-A" class="undo-btn" role="button">RÚT THẺ <i class="fa-solid fa-rotate-right"></i></button>
     </div>
-    <div id="dev-ctn">
+    <div id="dev-ctn" style="display: none;">
         <h2 id="test"></h2>
         <button id="reset">Reset Score to 0</button>
         <label for="input">Time Out</label>
         <input type="checkbox" name="Time Out" id="timeout" checked="true">
     </div>
-    <div id='box-ctn'>
-    </div>
 
-    <div id='box-1' class="box-item">
-        <h2>Bất lực</h2>
+    <div id='card-A' class="card">
+        <h2>BẤTLỰC!</h2>
     </div>
-    <div id='box-2' class="box-item">
-        <h2>Bất lực</h2>
+    <div id='card-B' class="card">
+        <h2>BẤTLỰC!</h2>
+    </div>
+    <div class="lds-ctn">
+        <i class="fa-solid fa-heart" id="heart"></i>
+    </div>
+    <!--
+    <div class="area">
+        <ul class="circles">
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+            <li><i class="fa-solid fa-heart"></i></li>
+        </ul>
+    </div>
+    -->
+    <div class="area">
+        <div class="circles">
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+        </div>
     </div>
 </body>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script type="module" src="./main.js"></script>
+<script src="./JS/additional.js"></script>
 
 </html>

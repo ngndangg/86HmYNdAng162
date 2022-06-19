@@ -1,0 +1,135 @@
+@use "variables" as v;
+
+/** ============================== Card Animation =========================== */
+
+.card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    pointer-events: none;
+    opacity: 0;
+    transform-origin: 50% 50%;
+    h2 {
+        font-size: 2rem;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 700;
+        margin: 0;
+    }
+    /* shorthand 
+animation: give-card 1.5s linear 0s 1 normal none;
+*/
+}
+
+#card-A {
+    color: v.$color-2;
+    background-color: v.$color-5;
+}
+
+#card-B {
+    color: v.$color-6;
+    background-color: v.$color-8;
+}
+
+@mixin CardAnimation($name, $n) {
+    @keyframes #{$name} {
+        0% {
+            transform: translateY(0) translateX(0) scale(0) rotate(260deg* $n);
+            filter: blur(10px);
+            opacity: 0;
+        }
+        25% {
+            transform: translateY(-70px) translateX(calc(v.$anim-dist*0.25*$n)) scale(1) rotate(340deg*$n);
+            filter: blur(0);
+            opacity: 1;
+        }
+        40% {
+            transform: translateY(-90px) translateX(calc(v.$anim-dist*0.4*$n)) rotate(355deg*$n);
+        }
+        50% {
+            transform: translateY(-100px) translateX(calc(v.$anim-dist*0.5*$n)) rotate(360deg*$n);
+        }
+        60% {
+            transform: translateY(-90px) translateX(calc(v.$anim-dist*0.6*$n)) scale(1) rotate(365deg*$n);
+            filter: blur(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-10px) translateX(calc(v.$anim-dist*1*$n)) scale(0) rotate(450deg*$n);
+            filter: blur(10px);
+            opacity: 0;
+        }
+    }
+}
+
+@include CardAnimation(anim-card-A, 1);
+@include CardAnimation(anim-card-B, -1);
+
+/*
+@keyframes anim-card-A {
+    0% {
+        transform: translateY(0) translateX(0) scale(0) rotate(260deg);
+        transform-origin: 50% 50%;
+        filter: blur(10px);
+        opacity: 0;
+    }
+    25% {
+        transform: translateY(-70px) translateX(calc(v.$anim-dist*0.25)) scale(1) rotate(340deg);
+        transform-origin: 50% 50%;
+        filter: blur(0);
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(-90px) translateX(calc(v.$anim-dist*0.4)) rotate(355deg);
+    }
+    50% {
+        transform: translateY(-100px) translateX(calc(v.$anim-dist*0.5)) rotate(360deg);
+    }
+    60% {
+        transform: translateY(-90px) translateX(calc(v.$anim-dist*0.6)) scale(1) rotate(365deg);
+        filter: blur(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10px) translateX(calc(v.$anim-dist*1)) scale(0) rotate(450deg);
+        filter: blur(10px);
+        opacity: 0;
+    }
+}
+
+@keyframes anim-card-B {
+    0% {
+        transform: translateY(0) translateX(0) scale(0) rotate(-260deg);
+        transform-origin: 50% 50%;
+        filter: blur(10px);
+        opacity: 0;
+    }
+    25% {
+        transform: translateY(-70px) translateX(calc(v.$anim-dist * -0.25)) scale(1) rotate(-340deg);
+        filter: blur(0);
+        transform-origin: 50% 50%;
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(-90px) translateX(calc(v.$anim-dist * -0.4)) rotate(-355deg);
+    }
+    50% {
+        transform: translateY(-100px) translateX(calc(v.$anim-dist * -0.5)) rotate(-360deg);
+    }
+    60% {
+        transform: translateY(-90px) translateX(calc(v.$anim-dist * -0.6)) scale(1) rotate(-365deg);
+        filter: blur(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10px) translateX(calc(v.$anim-dist * -1)) scale(0) rotate(-450deg);
+        filter: blur(10px);
+        opacity: 0;
+    }
+}
+*/
