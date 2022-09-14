@@ -59,13 +59,13 @@ function GetCookie(_name) {
     return dict[_name];
 }
 
-function DeleteCookie(name) {
-    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+function DeleteId() {
+    document.cookie = "Id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 }
 
 var gotcookie = GetCookie("Id")
 if (gotcookie == undefined) {
-    var newid = Math.floor(Math.random() * 100);
+    var newid = Math.floor(Math.random() * 100000);
     document.cookie = "Id=" + newid.toString() + "; expires=Thu, 31 Dec 2030 12:00:00 UTC; path=/";
     WriteDeviceIds(newid);
 } else {
