@@ -7,7 +7,7 @@ import { getFirestore, doc, getDoc, getDocs, setDoc, collection } from "https://
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyBGiNMXAnydUJe0nTIKdc9EpH9tXsvcoAU",
     authDomain: "batluc-ebf20.firebaseapp.com",
     // The value of `databaseURL` depends on the location of the database
@@ -25,9 +25,9 @@ const app = initializeApp(firebaseConfig);
 
 
 // Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
-const score = doc(db, "Batluc/862004");
+const score = doc(db, "Batluc/score");
 
 export function WriteScore(_a, _b) {
     var content = {
@@ -50,7 +50,7 @@ export async function GetScore() {
         var docData = snapshot.data();
         var _A = docData.A;
         var _B = docData.B;
-        console.log("My data is: " + _A + ", " + _B);
+        console.log("Received data: A: " + _A + ", B: " + _B);
         SetA(_A);
         SetB(_B);
     }
@@ -209,3 +209,6 @@ function WindowResized() {
 }
 
 //#endregion
+
+
+//=============================== DEVICE RECOGNITION ======================================
