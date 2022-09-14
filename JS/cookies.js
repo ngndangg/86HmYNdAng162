@@ -26,16 +26,13 @@ async function GetDeviceIdsString() {
     }
 }
 
-var savedString = await GetDeviceIdsString();
-console.log(savedString);
-
-function WriteDeviceIds(id) {
+function WriteDeviceIds(_id) {
     var oldIds = savedString;
     var str = ""
     if (oldIds == "") {
-        str = id.toString();
+        str = _id;
     } else {
-        str = oldIds + ";" + id.toString();
+        str = oldIds + ";" + _id;
     }
 
     var content = {
@@ -44,7 +41,7 @@ function WriteDeviceIds(id) {
 
     setDoc(deviceIds, content, { merge: true })
         .then(() => {
-            console.log("New id written (" + id + ")");
+            console.log("New id written (" + _id + ")");
         })
         .catch((error) => {
             console.log('Got an ERROR!!! + ${error}');
@@ -67,13 +64,14 @@ var gotcookie = GetCookie("Id")
 if (gotcookie == undefined) {
     var newid = Math.floor(Math.random() * 100000);
     document.cookie = "Id=" + newid.toString() + "; expires=Thu, 31 Dec 2030 12:00:00 UTC; path=/";
-    WriteDeviceIds(newid);
+    gotcookie = newid;
 } else {
-    console.log("This device id: " + GetCookie("Id"));
+    console.log("This device id: " + gotcookie);
 }
 thisId = gotcookie;
 
 var savedIds = await GetDeviceIdsArray();
+var savedString = await GetDeviceIdsString();
 var saved = false
 savedIds.forEach(_id => {
     if (_id == thisId) {
