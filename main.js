@@ -1,6 +1,6 @@
 var A = 0;
 var B = 0;
-//#region ====================FIREBASE========================
+//#region ================================= FIREBASE ==========================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getFirestore, doc, getDoc, getDocs, setDoc, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 
@@ -93,7 +93,7 @@ function SetUpCardStyle() { //Set Position of Card
 }
 SetUpCardStyle();
 
-//#region  =======================FUNCTIONS=================================
+//#region  ===================================FUNCTIONS==========================================
 
 var timeOutDuration = 1000;
 btnA.addEventListener("click", function() {

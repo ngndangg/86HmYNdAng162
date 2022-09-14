@@ -1,0 +1,1 @@
+Cookies.set('deviceId', 'value', { expires: 7 })

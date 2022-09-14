@@ -31,7 +31,7 @@
         <button id="undo-B" class="undo-btn" role="button"><i class="fa-solid fa-rotate-left"></i> RÚT THẺ</button>
         <button id="undo-A" class="undo-btn" role="button">RÚT THẺ <i class="fa-solid fa-rotate-right"></i></button>
     </div>
-    <div id="dev-ctn" style="display: none;">
+    <div id="dev-ctn" style="display: flex;">
         <h2 id="test"></h2>
         <button id="reset">Reset Score to 0</button>
         <label for="input">Time Out</label>
@@ -47,22 +47,6 @@
     <div class="lds-ctn">
         <i class="fa-solid fa-heart" id="heart"></i>
     </div>
-    <!--
-    <div class="area">
-        <ul class="circles">
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-            <li><i class="fa-solid fa-heart"></i></li>
-        </ul>
-    </div>
-    -->
     <div class="area">
         <div class="circles">
             <i class="fa-solid fa-heart"></i>
@@ -78,9 +62,17 @@
         </div>
     </div>
 </body>
+<!-- Storage -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<!-- Cookies -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<!-- Sound -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+<!-- Main -->
 <script type="module" src="./main.js"></script>
 <script src="./JS/additional.js"></script>
+<script src="./JS/sound.js"></script>
+<script src="./JS/cookies.js"></script>
 
 </html>
