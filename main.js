@@ -1,8 +1,9 @@
-var A = 0;
-var B = 0;
+var D = 0;
+var M = 0;
 //#region ================================= FIREBASE ==========================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getFirestore, doc, getDoc, getDocs, setDoc, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+
 
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -23,21 +24,44 @@ export const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
 
 const score = doc(db, "Batluc/score");
+//export const ids = doc(db, "Batluc/deviceIds");
 
-export function WriteScore(_a, _b) {
+//==================== User Gender =========================
+let gender = "";
+
+//'gender' is set from device.js
+export const SetGender = (val) => (gender = val);
+//Timer is to wait for the gender to be set to apply changes based on gender
+function TestGender(){
+    console.log(gender);
+    GenderChanges();
+    if (gender != ""){ //If 'gender' is changed then kill the timer
+        clearInterval(timer);
+    }
+}
+let timer = setInterval(TestGender, 500); //Loop checking the 'gender'
+
+function GenderChanges(){
+    if (gender == "D"){
+        giveBtn.innerHTML = "Cho thẻ Hoài Minh"
+    } else if (gender == "M") {
+        giveBtn.innerHTML = "Cho thẻ Đăng"
+    }
+}
+//==================== Score Funtions ========================
+export function SaveScore(_d, _m) {
     var content = {
-        A: _a,
-        B: _b
+        D: _d,
+        M: _m
     };
 
     setDoc(score, content, { merge: true })
         .then(() => {
-            console.log("Data written to firebase (", _a, ", ", _b, ")");
+            console.log("Score saved to firebase (", _d, ", ", _m, ")");
         })
         .catch((error) => {
             console.log('Got an ERROR!!! + ${error}');
@@ -47,37 +71,32 @@ export function WriteScore(_a, _b) {
 export async function GetScore() {
     const snapshot = await getDoc(score);
     if (snapshot.exists()) {
-        var docData = snapshot.data();
-        var _A = docData.A;
-        var _B = docData.B;
-        console.log("Received data: A: " + _A + ", B: " + _B);
-        SetA(_A);
-        SetB(_B);
+        let docData = snapshot.data();
+        let _D = docData.D;
+        let _M = docData.M;
+        console.log("Retrieved score: D: " + _D + ", M: " + _M);
+        UpdateScore(_D, _M);
     }
 }
 GetScore();
 
 //#endregion
 
-const btnA = document.getElementById("give-A");
-const btnB = document.getElementById("give-B");
-const btnC = document.getElementById("undo-A");
-const btnD = document.getElementById("undo-B");
+const giveBtn = document.getElementById("give-btn");
+const undoBtn = document.getElementById("undo-btn");
+const dispD = document.getElementById("disp-D");
+const dispM = document.getElementById("disp-M");
 
 function DisableAllBtn() {
-    btnA.disabled = true;
-    btnB.disabled = true;
-    btnC.disabled = true;
-    btnD.disabled = true;
+    giveBtn.disabled = true;
+    undoBtn.disabled = true;
 }
 
 function EnableAllBtn() {
-    btnA.disabled = false;
-    btnB.disabled = false;
-    btnC.disabled = false;
-    btnD.disabled = false;
+    giveBtn.disabled = false;
+    undoBtn.disabled = false;
 }
-
+/*
 //ANIMATION
 const animCardA = document.getElementById("card-A");
 const animCardB = document.getElementById("card-B");
@@ -92,89 +111,70 @@ function SetUpCardStyle() { //Set Position of Card
     animCardA.style.left = String(rect2.left + (rect2.w / 2)) + "px";
 }
 SetUpCardStyle();
-
+*/
 //#region  ===================================FUNCTIONS==========================================
 
 var timeOutDuration = 1000;
-btnA.addEventListener("click", function() {
-    GiveA();
+giveBtn.addEventListener("click", function() {
+    GiveCard();
     DisableAllBtn();
-    animCardB.style.animation = "anim-card-B " + timeOutDuration / 1000 + "s linear 0s 1 normal none";
+    //animCardB.style.animation = "anim-card-B " + timeOutDuration / 1000 + "s linear 0s 1 normal none";
     setTimeout(function() {
         EnableAllBtn();
-        animCardB.style.animation = "";
+        //animCardB.style.animation = "";
     }, timeOutDuration);
 });
-
-btnB.addEventListener("click", function() {
-    GiveB();
-    DisableAllBtn();
-    animCardA.style.animation = "anim-card-A " + timeOutDuration / 1000 + "s linear 0s 1 normal none";
-    //SetUpCardStyle();
-    setTimeout(function() {
-        EnableAllBtn();
-        animCardA.style.animation = "";
-    }, timeOutDuration);
-});
-btnC.addEventListener("click", function() {
-    UndoA();
-    DisableAllBtn();
-    setTimeout(function() { EnableAllBtn(); }, timeOutDuration);
-});
-btnD.addEventListener("click", function() {
-    UndoB();
+undoBtn.addEventListener("click", function() {
+    UndoCard();
     DisableAllBtn();
     setTimeout(function() { EnableAllBtn(); }, timeOutDuration);
 });
 
 
-function GiveA() {
-    A++;
-    SetA(A);
+function GiveCard() {
+    if (deviceGender == "D")
+        D++;
+    else if (deviceGender == "M")
+        M++;
+    DisplayScore(D, M);
+    SaveScore(D, M);
 }
 
-function GiveB() {
-    B++;
-    SetB(B);
+function UndoCard() {
+    if (deviceGender == "D")
+        D--;
+    else if (deviceGender == "M")
+        M--;
+    DisplayScore(D, M);
+    SaveScore(D, M);
+}
+/**
+ * @description update current score
+ * @param {*} _d Dang's score
+ * @param {*} _m Minh's score
+ */
+function UpdateScore(_d, _m){
+    D = _d;
+    M = _m;
+    DisplayScore(D, M);
+    SaveScore(D, M);
 }
 
-function UndoA() {
-    A--;
-    SetA(A);
-}
-
-function UndoB() {
-    B--;
-    SetB(B);
-}
-
-function UpdateScore() {
-    SetA(A);
-    SetB(B);
-    WriteScore(A, B);
-}
-
-
-function SetA(_a) {
-    A = _a;
-    document.getElementById("disp-A").innerHTML = A;
-    WriteScore(A, B);
-}
-
-function SetB(_b) {
-    B = _b;
-    document.getElementById("disp-B").innerHTML = B;
-    WriteScore(A, B);
+function DisplayScore(_d, _m) {
+    dispD.innerHTML = _d;
+    dispM.innerHTML = _m;
 }
 
 document.getElementById("reset").addEventListener("click", function() {
     A = 0;
     B = 0;
-    UpdateScore();
+    DisplayScore(D, M);
+    SaveScore(D, M);
 });
 //#endregion
 
 //#region ==============================OTHER======================================
+
 //Toggle Button Cooldown
 var initialDuration = timeOutDuration;
 var timeoutcheckbox = document.getElementById("timeout");
@@ -186,7 +186,6 @@ function TimeOutToggle() {
     } else {
         timeOutDuration = 0;
     }
-    console.log(timeOutDuration);
 }
 
 
@@ -210,5 +209,3 @@ function WindowResized() {
 
 //#endregion
 
-
-//=============================== DEVICE RECOGNITION ======================================

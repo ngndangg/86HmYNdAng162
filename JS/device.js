@@ -1,15 +1,17 @@
-import { db } from "../main.js";
-import {doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import { db, SetGender } from "../main.js";
+import {getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 
 export var thisId = "";
 
-const deviceIds = doc(db, "Batluc/deviceIds");
+//const deviceIds = ids;
+/*
+const db = getFirestore(app);
+var deviceIds = doc(db, "Batluc/deviceIds");
+*/
 
-const popup = document.getElementById("gender-popup");
-const gender_hm = document.getElementById("gender-hm");
-const gender_hd = document.getElementById("gender-hd");
+var deviceIds = doc(db, "Batluc/deviceIds");
 
-var deviceGender = "";
+export var deviceGender = "";
 var deviceOS = "";
 
 /**
@@ -40,7 +42,6 @@ async function GetDeviceIdsString() {
         return "";
     }
 }
-
 
 
 /**
@@ -122,17 +123,20 @@ function RandomIdGen(){
 }
 
 /**
- * @description Register new device. Make new id for device and save to DB (Step 3/3)
- * @param {string} _gender Gender of device's user to put in id
- * @param {string} _os Operating system of device tp uut in id
- * @return {string} String of new id
+ * @description Call to start registering a new device. Popup to ask for gender (Step 1/3)
  */
-function RegNewDevice(_gender, _os){
-    let newid = _gender + _os + RandomIdGen().toString(); //Worst Id generator ever
-    document.cookie = "Id=" + newid + "; expires=Thu, 31 Dec 2030 12:00:00 UTC; path=/";
-    thisId = newid;
-    SaveDeviceIds(newid);
-    return newid;
+ function NewDevice() {
+    popup.style.display = "flex"; //Display the popup
+
+    gender_hm.addEventListener("click", function() {
+        deviceGender = "M";
+        CheckOs(deviceGender);
+    });
+
+    gender_hd.addEventListener("click", function() {
+        deviceGender = "D";
+        CheckOs(deviceGender);
+    });
 }
 
 /**
@@ -168,25 +172,17 @@ function RegNewDevice(_gender, _os){
 }
 
 /**
- * @description Call to start registering a new device. Popup to ask for gender (Step 1/3)
+ * @description Register new device. Make new id for device and save to DB (Step 3/3)
+ * @param {string} _gender Gender of device's user to put in id
+ * @param {string} _os Operating system of device tp uut in id
+ * @return {string} String of new id
  */
-function NewDevice() {
-    const popup = document.getElementById("gender-popup");
-    const gender_hm = document.getElementById("gender-hm");
-    const gender_hd = document.getElementById("gender-hd");
-
-
-    popup.style.display = "flex"; //Display the popup
-
-    gender_hm.addEventListener("click", function() {
-        deviceGender = "M";
-        CheckOs(deviceGender);
-    });
-
-    gender_hd.addEventListener("click", function() {
-        deviceGender = "D";
-        CheckOs(deviceGender);
-    });
+function RegNewDevice(_gender, _os){
+    let newid = _gender + _os + RandomIdGen().toString(); //Worst Id generator ever
+    document.cookie = "Id=" + newid + "; expires=Thu, 31 Dec 2030 12:00:00 UTC; path=/";
+    thisId = newid;
+    SaveDeviceIds(newid);
+    return newid;
 }
 
 //#endregion
@@ -198,6 +194,9 @@ function DeleteId() {
 
 //=================================== MAIN ====================================
 
+const popup = document.getElementById("gender-popup");
+const gender_hm = document.getElementById("gender-hm");
+const gender_hd = document.getElementById("gender-hd");
 
 thisId = GetCookie("Id"); //Check browser's cookie for Id
 if (thisId == undefined) { //Generate a new one if didn't exist
@@ -223,9 +222,22 @@ savedIds.forEach(_id => {
     }
 });
 
-
 //If not saved write this id to database
 if (!saved) {
     console.log("This device is NOT saved");
     NewDevice();
 }
+
+function GetGender(){
+    let g = thisId.charAt(0);
+    return g;
+}
+
+function GetDevice(){
+    let v = thisId.charAt(1);
+    return v;
+}
+
+deviceGender = GetGender();
+
+SetGender(deviceGender);

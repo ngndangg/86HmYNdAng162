@@ -108,26 +108,8 @@
     }
 }
 
-#give-A {
-    /*
-background-color: v.$color-5;
-color: v.$text-color-1;
-&:after {
-    background-color: v.$color-4;
-}
-*/
+#give-btn {
     @include Button2Variation(40vw, 50vh, 2rem, v.$color-4, v.$color-5, v.$text-color-1);
-}
-
-#give-B {
-    /*
-background-color: v.$color-8;
-color: v.$text-color-2;
-&:after {
-    background-color: v.$color-7;
-}
-*/
-    @include Button2Variation(40vw, 50vh, 2rem, v.$color-7, v.$color-8, v.$text-color-2);
 }
 
 .undo-btn {

@@ -10,38 +10,24 @@
     <title>Thẻ Bất lực</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/afcbb667b7.js" crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Q810Z26VY"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-3Q810Z26VY');
-    </script>
 </head>
 
 <body>
-    <div id="disp-ctn">
+    <div id="score-disp-ctn">
         <div>
             <label for="h1">Số thẻ A:</label>
-            <h1 id="disp-A" class="disp"> 0 </h1>
+            <h1 id="disp-D" class="score-disp"> 0 </h1>
         </div>
         <div>
             <label for="h1">Số thẻ B:</label>
-            <h1 id="disp-B" class="disp"> 0 </h1>
+            <h1 id="disp-M" class="score-disp"> 0 </h1>
         </div>
     </div>
     <div id="give-ctn">
-        <button id="give-B" class="give-btn" role="button"> CHO THẺ B</button>
-        <button id="give-A" class="give-btn" role="button"> CHO THẺ A</button>
+        <button id="give-btn" class="give-btn" role="button"> CHO THẺ BẤT LỰC</button>
     </div>
     <div id="undo-ctn">
-        <button id="undo-B" class="undo-btn" role="button"><i class="fa-solid fa-rotate-left"></i> RÚT THẺ</button>
-        <button id="undo-A" class="undo-btn" role="button">RÚT THẺ <i class="fa-solid fa-rotate-right"></i></button>
+        <button id="undo-btn" class="undo-btn" role="button"><i class="fa-solid fa-rotate-left"></i> RÚT THẺ</button>
     </div>
     <div id="dev-ctn" style="display: flex;">
         <h2 id="test"></h2>
@@ -56,6 +42,7 @@
     <div id='card-B' class="card">
         <h2>BẤTLỰC!</h2>
     </div>
+    <!--=================== Heart Background =================-->
     <div class="lds-ctn">
         <i class="fa-solid fa-heart" id="heart"></i>
     </div>
@@ -73,6 +60,7 @@
             <i class="fa-solid fa-heart"></i>
         </div>
     </div>
+    <!--=================== Gender popup =================-->
     <div class="fullscreen-popup" id="gender-popup">
         <div class="ques-ctn" id="gender-ques-ctn">
             <h1 id="gender-ques-text">Hi there! What's your name?</h1>
@@ -87,12 +75,9 @@
 <!-- Storage -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<!-- Sound -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
 <!-- Main -->
 <script type="module" src="./main.js"></script>
 <script src="./JS/additional.js"></script>
-<script src="./JS/sound.js"></script>
-<script type="module" src="./JS/cookies.js"></script>
+<script type="module" src="./JS/device.js"></script>
 
 </html>
