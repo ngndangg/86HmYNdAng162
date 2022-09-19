@@ -119,7 +119,7 @@ btnB.addEventListener("click", function() {
 btnC.addEventListener("click", function() {
     UndoA();
     DisableAllBtn();
-    setTimeout(function() { EnableAllBtn();; }, timeOutDuration);
+    setTimeout(function() { EnableAllBtn(); }, timeOutDuration);
 });
 btnD.addEventListener("click", function() {
     UndoB();
@@ -181,7 +181,7 @@ var timeoutcheckbox = document.getElementById("timeout");
 timeoutcheckbox.addEventListener("change", function() { TimeOutToggle(); });
 
 function TimeOutToggle() {
-    if (timeoutcheckbox.checked == true) {
+    if (timeoutcheckbox.checked) {
         timeOutDuration = initialDuration;
     } else {
         timeOutDuration = 0;

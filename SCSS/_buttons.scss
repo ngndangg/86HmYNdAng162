@@ -15,10 +15,8 @@
 @mixin Button($w, $h, $font-size, $mainC, $shadowC, $textC) {
     width: $w;
     height: $h;
-    margin: 0;
     padding: 0.5rem 0.7rem;
     display: inline-block;
-    appearance: button;
     background-color: $shadowC;
     border: solid transparent;
     border-radius: 0.7rem;
@@ -28,7 +26,6 @@
     font-family: oswald, sans-serif;
     font-size: $font-size;
     font-weight: 700;
-    letter-spacing: -0.001rem;
     text-align: center;
     vertical-align: middle;
     overflow: hidden;
@@ -43,7 +40,7 @@
         position: absolute;
         background-clip: padding-box;
         border: solid transparent;
-        border-radius: 16px;
+        border-radius: 0.6rem;
         border-width: 0 0 3px;
         bottom: -3px;
         content: "";
@@ -66,14 +63,13 @@
 //@mixin Button2($w, $h, $font-size, $mainC, $shadowC, $textC) {
 @mixin Button2 {
     //$shadowC: #D6D6E7;
+    position: relative;
+    padding: 0 16px;
+    border-radius: 2rem;
+    border-width: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    appearance: none;
-    padding: 0 16px;
-    position: relative;
-    border-radius: 2rem;
-    border-width: 0;
     box-sizing: border-box;
     font-family: "Oswald", sans-serif;
     font-weight: 800;
@@ -85,34 +81,11 @@
     user-select: none;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-    touch-action: none;
     white-space: normal;
-    /*
-    $normal-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $shadowC 0 -5px 0 inset;
-    $focus-shadow: $shadowC 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $shadowC 0 -3px 0 inset;
-    $active-shadow: $shadowC 0 3px 7px inset;
-    
-    background-color: $mainC;
-    box-shadow: $normal-shadow;
-    color: $textC;
-    font-size: $font-size;
-    width: $w;
-    height: $h;
-    &:focus {
-        box-shadow: $focus-shadow;
-    }
-    &:hover {
-        box-shadow: $normal-shadow;
-        transform: translateY(-2px);
-    }
-    &:active {
-        box-shadow: $active-shadow;
-        transform: translateY(2px);
-    }
-    */
 }
 
 @mixin Button2Variation($w, $h, $font-size, $mainC, $shadowC, $textC) {
+    @include Button2();
     $normal-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $shadowC 0 -10px 0 inset;
     $focus-shadow: $shadowC 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $shadowC 0 -3px 0 inset;
     $active-shadow: $shadowC 0 3px 7px inset;
@@ -133,10 +106,6 @@
         box-shadow: $active-shadow;
         transform: translateY(2px);
     }
-}
-
-.give-btn {
-    @include Button2;
 }
 
 #give-A {

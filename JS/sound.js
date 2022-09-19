@@ -5,4 +5,4 @@ var sound = new Howl({
         alert('Finished!');
     }
 });
-sound.play();
+//sound.play();
