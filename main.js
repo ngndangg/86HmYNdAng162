@@ -28,9 +28,9 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 const score = doc(db, "Batluc/score");
-//export const ids = doc(db, "Batluc/deviceIds");
+//#endregion
 
-//==================== User Gender =========================
+//#region ==================== User Gender =========================
 let gender = "";
 
 //'gender' is set from device.js
@@ -38,21 +38,39 @@ export const SetGender = (val) => (gender = val);
 //Timer is to wait for the gender to be set to apply changes based on gender
 function TestGender(){
     console.log(gender);
-    GenderChanges();
+    GenderChanges(gender);
     if (gender != ""){ //If 'gender' is changed then kill the timer
         clearInterval(timer);
     }
 }
 let timer = setInterval(TestGender, 500); //Loop checking the 'gender'
 
-function GenderChanges(){
-    if (gender == "D"){
+function GenderChanges(g){
+    if (g == "D"){
         giveBtn.innerHTML = "Cho thẻ Hoài Minh"
-    } else if (gender == "M") {
+    } else if (g == "M") {
         giveBtn.innerHTML = "Cho thẻ Đăng"
     }
+
+    ChangeColor(g);
 }
-//==================== Score Funtions ========================
+
+function ChangeColor(g){
+    const r = document.querySelector(':root');
+    if (g == "D"){
+        r.style.setProperty('--var-color-1', '#83bae6');
+        r.style.setProperty('--var-color-2', '#5e70ab');
+        r.style.setProperty('--var-text-color-1', '#daecfb');
+    } else if (g == "M") {
+        r.style.setProperty('--var-color-2', '#A571A5');
+        r.style.setProperty('--var-color-2', '#8B4E82');
+        r.style.setProperty('--var-text-color-1', '#f5cdf2');
+    }
+}
+
+//#endregion
+
+//#region ==================== Score Funtions ========================
 export function SaveScore(_d, _m) {
     var content = {
         D: _d,
@@ -79,7 +97,6 @@ export async function GetScore() {
     }
 }
 GetScore();
-
 //#endregion
 
 const giveBtn = document.getElementById("give-btn");
@@ -112,7 +129,7 @@ function SetUpCardStyle() { //Set Position of Card
 }
 SetUpCardStyle();
 */
-//#region  ===================================FUNCTIONS==========================================
+//#region  ==========================FUNCTIONS=======================================
 
 var timeOutDuration = 1000;
 giveBtn.addEventListener("click", function() {
@@ -132,18 +149,18 @@ undoBtn.addEventListener("click", function() {
 
 
 function GiveCard() {
-    if (deviceGender == "D")
+    if (gender == "D")
         D++;
-    else if (deviceGender == "M")
+    else if (gender == "M")
         M++;
     DisplayScore(D, M);
     SaveScore(D, M);
 }
 
 function UndoCard() {
-    if (deviceGender == "D")
+    if (gender == "D")
         D--;
-    else if (deviceGender == "M")
+    else if (gender == "M")
         M--;
     DisplayScore(D, M);
     SaveScore(D, M);
@@ -166,8 +183,8 @@ function DisplayScore(_d, _m) {
 }
 
 document.getElementById("reset").addEventListener("click", function() {
-    A = 0;
-    B = 0;
+    D = 0;
+    M = 0;
     DisplayScore(D, M);
     SaveScore(D, M);
 });

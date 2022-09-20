@@ -1,5 +1,5 @@
 import { db, SetGender } from "../main.js";
-import {getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 
 export var thisId = "";
 
