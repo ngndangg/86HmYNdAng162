@@ -29,8 +29,8 @@
 }
 
 #gender-hm {
-    @include buttons.Button2Colored(40%, 12rem, 2rem, v.$color-4, v.$color-5, v.$text-color-1);
+    @include buttons.Button2Colored(40%, 12rem, 2rem, var(--color-4), var(--color-5), var(--text-color-1));
 }
 #gender-hd {
-    @include buttons.Button2Colored(40%, 12rem, 2rem, v.$color-7, v.$color-8, v.$text-color-2);
+    @include buttons.Button2Colored(40%, 12rem, 2rem, var(--color-7), var(--color-8), var(--text-color-2));
 }

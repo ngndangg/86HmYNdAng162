@@ -129,10 +129,10 @@
 }
 
 #give-btn {
-    @include Button2Variable(70vw, 50vh, 2rem);
+    @include Button2Variable(50vh, 50vh, 2rem);
 }
 
 #undo-btn {
     $testC: #d9d9d9;
-    @include Button(70vw, 10vh, 1rem, $testC, darken($testC, 40%), darken($testC, 30%));
+    @include Button(50vh, 10vh, 1rem, $testC, darken($testC, 40%), darken($testC, 30%));
 }

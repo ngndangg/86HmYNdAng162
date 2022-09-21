@@ -15,6 +15,14 @@ body {
     text-align: center;
 }
 
+h1 {
+    color: var(--text-color-0);
+}
+
+label {
+    color: var(--text-color-1);
+}
+
 #score-disp-ctn {
     display: flex;
     flex-grow: row nowrap;

@@ -13,8 +13,8 @@
 }
 
 .area {
-    background: #f0d7ff;
-    background: -webkit-linear-gradient(to left, #d0d3ff, #f3e1ff);
+    background: var(--bg-color-0);
+    //background: -webkit-linear-gradient(to left, #d0d3ff, #f3e1ff);
     width: 100vw;
     height: 100vh;
     position: fixed;

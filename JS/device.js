@@ -1,18 +1,14 @@
-import { db, SetGender } from "../main.js";
+import { db, SetGender } from "./scoring.js";
 import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 
 export var thisId = "";
-
-//const deviceIds = ids;
-/*
-const db = getFirestore(app);
-var deviceIds = doc(db, "Batluc/deviceIds");
-*/
 
 var deviceIds = doc(db, "Batluc/deviceIds");
 
 export var deviceGender = "";
 var deviceOS = "";
+
+//#region //*========== Communicating with FIREBASE ==================
 
 /**
  * @description Get Ids from database and split into array
@@ -72,6 +68,26 @@ function SaveDeviceIds(_id) {
 }
 
 
+/**
+ * @description Replace current saved string of ids with new string
+ * @param {number} str string to overwrite DB
+ */
+ function UpdateDeviceIds(str) {
+
+    let content = {
+        ids: str
+    };
+
+    setDoc(deviceIds, content, { merge: true })
+        .then(() => {
+            console.log("ID string written: "+ str);
+        })
+        .catch((error) => {
+            console.log('Got an ERROR!!! + ${error}');
+        })
+}
+//#endregion
+
 
 /**
  * @description Get device's Operating System
@@ -112,7 +128,7 @@ function GetCookie(_name) {
 
 
 
-//#region ======================== Registering new Device ====================================
+//#region //*============== Registering new Device ====================================
 
 function RandomIdGen(){
     var r = 0; 
@@ -182,37 +198,23 @@ function RegNewDevice(_gender, _os){
     document.cookie = "Id=" + newid + "; expires=Thu, 31 Dec 2030 12:00:00 UTC; path=/";
     thisId = newid;
     SaveDeviceIds(newid);
+    SetGender(GetGender());
     return newid;
 }
 
 //#endregion
 
-function DeleteId() {
-    document.cookie = "Id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"; 
-    //Put this in console to clear that device's id
-}
 
-//=================================== MAIN ====================================
+//*======================= MAIN ===========================
 
 const popup = document.getElementById("gender-popup");
 const gender_hm = document.getElementById("gender-hm");
 const gender_hd = document.getElementById("gender-hd");
 
-thisId = GetCookie("Id"); //Check browser's cookie for Id
-if (thisId == undefined) { //Generate a new one if didn't exist
-    popup.style.display = "flex";
-    NewDevice();
-} else {
-    popup.style.display = "none";
-    console.log("This device id is " + thisId);
-}
-
-
-
 let savedIds = await GetDeviceIdsArray();
 let savedString = await GetDeviceIdsString();
 
-let saved = false
+var saved = true;
 
 //Search the database's ids string(splitted into array) for this device's id
 savedIds.forEach(_id => {
@@ -222,10 +224,17 @@ savedIds.forEach(_id => {
     }
 });
 
-//If not saved write this id to database
-if (!saved) {
-    console.log("This device is NOT saved");
+thisId = GetCookie("Id"); //Check browser's cookie for Id
+if (thisId == undefined) { //Generate a new one if didn't exist
+    popup.style.display = "flex";
     NewDevice();
+} else if (!saved) {
+    console.log("This device has ID but NOT saved to DB");
+    document.cookie = "Id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    NewDevice();
+} else {
+    popup.style.display = "none";
+    console.log("This device id is " + thisId);
 }
 
 function GetGender(){
@@ -240,4 +249,42 @@ function GetDevice(){
 
 deviceGender = GetGender();
 
-SetGender(deviceGender);
+SetGender(GetGender()); //send gender to main.js
+
+
+savedIds = await GetDeviceIdsArray();
+savedString = await GetDeviceIdsString();
+
+/**
+ * @description Remove current device's ID from cookie and DB. Exposed to console for debug
+ */
+function DeleteThisId() {
+    console.log(savedIds);
+
+    var _ids = savedIds.map(e => { 
+        if (e == thisId){
+            e = null; //Remove current ID from the array
+        }
+        return e;
+    });
+    console.log(_ids);
+
+    var newIdString = ""; //Make array into new string
+    for (let i = 0; i < _ids.length; i++) {
+        const id = _ids[i];
+        if (id != null){
+            if ( i == _ids.length - 1){
+                newIdString += id.toString();
+            } else {
+                newIdString += id.toString() + ';';
+            }
+        }
+    }
+    console.log(newIdString);
+    UpdateDeviceIds(newIdString); //Write whole string to DB
+    document.cookie = "Id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"; //Remove Id from cookie
+    location.reload();
+}
+
+
+window.DeleteId = DeleteThisId; //Expose function to console
