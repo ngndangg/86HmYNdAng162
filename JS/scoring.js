@@ -1,5 +1,4 @@
-var D = 0;
-var M = 0;
+import { GetThinh } from "./thinh.js";
 //#region ================================= FIREBASE ==========================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getFirestore, doc, getDoc, getDocs, setDoc, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
@@ -25,7 +24,14 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 const score = doc(db, "Batluc/score");
+const timeGiven = doc(db, "Batluc/lastTimeGiven");
 //#endregion
+
+var D = 0;
+var M = 0;
+
+var Dtime = 0;
+var Mtime = 0;
 
 //#region //*=============== User Gender =========================
 let gender = "";
@@ -45,6 +51,7 @@ let timer = setInterval(TestGender, 500); //Loop checking the 'gender'
 function GenderChanges(g){
     if (g == "D"){
         giveBtn.innerHTML = "Cho thẻ Hoài Minh"
+        document.getElementById("dev-ctn").style.display = "flex";
     } else if (g == "M") {
         giveBtn.innerHTML = "Cho thẻ Đăng"
     }
@@ -69,31 +76,68 @@ function ChangeColor(g){
 
 //#region //*=============== Score Funtions ========================
 export function SaveScore(_d, _m) {
-    var content = {
+    //Score
+    var s = {
         D: _d,
         M: _m
     };
 
-    setDoc(score, content, { merge: true })
+    setDoc(score, s, { merge: true })
         .then(() => {
             console.log("Score saved to firebase (", _d, ", ", _m, ")");
         })
         .catch((error) => {
             console.log('Got an ERROR!!! + ${error}');
         })
+
 }
 
 export async function GetScore() {
-    const snapshot = await getDoc(score);
-    if (snapshot.exists()) {
-        let docData = snapshot.data();
-        let _D = docData.D;
-        let _M = docData.M;
+    const _score = await getDoc(score);
+    if (_score.exists()) {
+        let s = _score.data();
+        let _D = s.D;
+        let _M = s.M;
         console.log("Retrieved score: D: " + _D + ", M: " + _M);
+        D = _D;
+        M = _M;
         DisplayScore(_D, _M);
     }
 }
 GetScore();
+
+async function SaveTime(){
+    //Time given
+    var t = null;
+    const date = new Date();
+    if (gender == 'D'){
+        Dtime = date.getTime();
+        t = { D: Dtime};
+    } else if (gender == 'M'){
+        Mtime = date.getTime();
+        t = { M: Mtime};
+    }
+    setDoc(timeGiven, t, { merge: true })
+        .then(() => {
+            console.log("Time saved to firebase (", Dtime, ", ", Mtime, ")");
+        })
+        .catch((error) => {
+            console.log('Got an ERROR!!! + ${error}');
+        })
+}
+
+async function GetTime() {
+    const _timeGiven = await getDoc(timeGiven);
+    if (_timeGiven.exists()) {
+        let t = _timeGiven.data();
+        let _Dtime = t.D;
+        let _Mtime = t.M;
+        console.log("Last time given is: D: " + _Dtime + ", M: " + _Mtime);
+        Dtime = _Dtime;
+        Mtime = _Mtime;
+    }
+}
+GetTime();
 //#endregion
 
 const giveBtn = document.getElementById("give-btn");
@@ -130,7 +174,7 @@ SetUpCardStyle();
 
 var timeOutDuration = 1000;
 giveBtn.addEventListener("click", function() {
-    GiveCard(gender);
+    RecordTimeGiven();
     DisableAllBtn();
     //animCardB.style.animation = "anim-card-B " + timeOutDuration / 1000 + "s linear 0s 1 normal none";
     setTimeout(function() {
@@ -152,6 +196,7 @@ function GiveCard(g) {
         M++;
     DisplayScore(D, M);
     SaveScore(D, M);
+    SaveTime();
 }
 
 window.UndoCard = UndoCard; //Expose to console
@@ -190,6 +235,55 @@ function ResetScore(){
     DisplayScore(D, M);
     SaveScore(D, M);
 }
+//!==================Time=================
+var contClickCount = 0;
+function RecordTimeGiven(){
+    contClickCount++;
+    const d = new Date();
+    let curTime = d.getTime();
+    let diff = 0; //Difference in milliseconds
+    if (gender == 'D'){
+        diff = curTime - Dtime;
+    } else if (gender =='M'){
+        diff = curTime - Mtime;
+    }
+    diff = diff / timeDigit.minute; //Difference in minutes
+
+    if (diff < 1) {
+        switch (contClickCount) {
+            case 1:
+                alert("Ô gì mà bất lực liên tục thế");
+                break;
+            case 2:
+                alert("Bình tĩnh nào, có gì thì nói với nhau chứ");
+                break;
+            case 3:
+                alert("Này nghiêm túc đấy à?");
+                break;
+            case 4:
+                alert("Ok đành vậy :( (Đã đưa thẻ bất lực)");
+                GiveCard(gender);
+                break;
+            case 5:
+                alert("Ơ thôi mà, nhiều lắm rồi đấy");
+            case 6:
+                alert("Bất lực là không đủ sức làm, không làm gì được, “cậu nhỏ” bất lực tức là tình trạng dương vật không thể cư.... Ơ chết rồi copy nhầm định nghĩa ở trên mạng, kệ đi nhé");
+            default:
+                alert("Đây là 1 câu thính random để hạ hoả :\">: \n" + GetThinh());
+                break;
+        }
+    } else {
+        GiveCard(gender);
+        contClickCount = 0;
+    }
+}
+
+const timeDigit = {
+    minute: 1000 * 60,
+    hour: 1000 * 60 * 60,
+    day: 1000 * 60 * 60 * 24,
+    year: 1000 * 60 * 60 * 24 * 365
+};
 //#endregion
 
 //#region //* ==============================OTHER======================================
@@ -225,6 +319,8 @@ window.addEventListener('resize', WindowResized);
 function WindowResized() {
     SetUpCardStyle();
 }
+
+
 
 //#endregion
 

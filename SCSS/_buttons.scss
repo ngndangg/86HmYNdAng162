@@ -136,3 +136,8 @@
     $testC: #d9d9d9;
     @include Button(50vh, 10vh, 1rem, $testC, darken($testC, 40%), darken($testC, 30%));
 }
+
+
+#thinh-btn {
+    @include Button(6vw, 6vw, 2vw, var(--color-4), var(--color-5), white);
+}

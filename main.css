@@ -124,6 +124,58 @@
   filter: none;
 }
 
+#thinh-btn {
+  width: 6vw;
+  height: 6vw;
+  padding: 0.5rem 0.7rem;
+  display: inline-block;
+  background-color: var(--color-5);
+  border: solid transparent;
+  border-radius: 0.7rem;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: white;
+  font-family: oswald, sans-serif;
+  font-size: 2vw;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  touch-action: none;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+#thinh-btn:after {
+  background-color: var(--color-4);
+  position: absolute;
+  background-clip: padding-box;
+  border: solid transparent;
+  border-radius: 0.6rem;
+  border-width: 0 0 3px;
+  bottom: -3px;
+  content: "";
+  inset: 0;
+  z-index: -1;
+}
+#thinh-btn:main, #thinh-btn:focus {
+  -webkit-user-select: auto;
+     -moz-user-select: auto;
+      -ms-user-select: auto;
+          user-select: auto;
+}
+#thinh-btn:disabled {
+  filter: brightness(0.8);
+  -webkit-filter: brightness(0.8);
+}
+#thinh-btn:enabled {
+  filter: none;
+}
+
 /** ============================== Card Animation =========================== */
 .card {
   position: absolute;
@@ -557,84 +609,84 @@
   bottom: -150px;
 }
 .circles i:nth-child(1) {
-  left: 44%;
-  font-size: 4.8rem;
-  -webkit-animation-delay: 5s;
-          animation-delay: 5s;
-  -webkit-animation-duration: 28s;
-          animation-duration: 28s;
+  left: 77%;
+  font-size: 5.3rem;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  -webkit-animation-duration: 36s;
+          animation-duration: 36s;
 }
 .circles i:nth-child(2) {
-  left: 34%;
+  left: 71%;
   font-size: 5.4rem;
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
+  -webkit-animation-duration: 32s;
+          animation-duration: 32s;
+}
+.circles i:nth-child(3) {
+  left: 38%;
+  font-size: 5.5rem;
   -webkit-animation-delay: 1s;
           animation-delay: 1s;
   -webkit-animation-duration: 42s;
           animation-duration: 42s;
 }
-.circles i:nth-child(3) {
-  left: 21%;
-  font-size: 6.3rem;
-  -webkit-animation-delay: 5s;
-          animation-delay: 5s;
-  -webkit-animation-duration: 39s;
-          animation-duration: 39s;
-}
 .circles i:nth-child(4) {
-  left: 52%;
-  font-size: 5.8rem;
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s;
-  -webkit-animation-duration: 17s;
-          animation-duration: 17s;
-}
-.circles i:nth-child(5) {
-  left: 89%;
-  font-size: 3.4rem;
-  -webkit-animation-delay: 4s;
-          animation-delay: 4s;
-  -webkit-animation-duration: 37s;
-          animation-duration: 37s;
-}
-.circles i:nth-child(6) {
-  left: 83%;
-  font-size: 5.3rem;
+  left: 17%;
+  font-size: 5.5rem;
   -webkit-animation-delay: 2s;
           animation-delay: 2s;
-  -webkit-animation-duration: 28s;
-          animation-duration: 28s;
+  -webkit-animation-duration: 43s;
+          animation-duration: 43s;
+}
+.circles i:nth-child(5) {
+  left: 53%;
+  font-size: 5.3rem;
+  -webkit-animation-delay: 5s;
+          animation-delay: 5s;
+  -webkit-animation-duration: 30s;
+          animation-duration: 30s;
+}
+.circles i:nth-child(6) {
+  left: 73%;
+  font-size: 3.3rem;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  -webkit-animation-duration: 27s;
+          animation-duration: 27s;
 }
 .circles i:nth-child(7) {
-  left: 56%;
-  font-size: 6.9rem;
+  left: 46%;
+  font-size: 5.6rem;
   -webkit-animation-delay: 5s;
           animation-delay: 5s;
-  -webkit-animation-duration: 34s;
-          animation-duration: 34s;
+  -webkit-animation-duration: 21s;
+          animation-duration: 21s;
 }
 .circles i:nth-child(8) {
-  left: 47%;
-  font-size: 6.5rem;
+  left: 63%;
+  font-size: 3.1rem;
   -webkit-animation-delay: 3s;
           animation-delay: 3s;
-  -webkit-animation-duration: 23s;
-          animation-duration: 23s;
+  -webkit-animation-duration: 43s;
+          animation-duration: 43s;
 }
 .circles i:nth-child(9) {
-  left: 54%;
-  font-size: 3.4rem;
-  -webkit-animation-delay: 5s;
-          animation-delay: 5s;
-  -webkit-animation-duration: 16s;
-          animation-duration: 16s;
-}
-.circles i:nth-child(10) {
-  left: 45%;
-  font-size: 6.5rem;
-  -webkit-animation-delay: 3s;
-          animation-delay: 3s;
+  left: 17%;
+  font-size: 4rem;
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
   -webkit-animation-duration: 35s;
           animation-duration: 35s;
+}
+.circles i:nth-child(10) {
+  left: 86%;
+  font-size: 6.9rem;
+  -webkit-animation-delay: 3s;
+          animation-delay: 3s;
+  -webkit-animation-duration: 21s;
+          animation-duration: 21s;
 }
 
 :root {
@@ -653,6 +705,10 @@ h1 {
 
 label {
   color: var(--text-color-1);
+}
+
+#thinh-ctn {
+  margin-top: 100px;
 }
 
 #score-disp-ctn {
